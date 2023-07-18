@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'recipes.apps.RecipesConfig',
     'api.apps.ApiConfig',
     "rest_framework",
+    "corsheaders",
     "rest_framework.authtoken",
     "django_filters",
     "djoser",
@@ -36,6 +37,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -143,3 +145,9 @@ LENGTH_OF_FIELDS_USER_1 = 150
 LENGTH_OF_FIELDS_USER_2 = 254
 
 LENGTH_OF_FIELDS_RECIPES = 200
+
+CORS_URLS_REGEX = r'^/api/.*$'
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
