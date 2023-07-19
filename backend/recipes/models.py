@@ -119,6 +119,36 @@ class Recipe(models.Model):
         return self.name
 
 
+class IngredientRecipe(models.Model):
+    """ Ингридиенты рецепта. """
+    ingredient = models.ForeignKey(
+        Ingredient,
+        on_delete=models.CASCADE,
+        verbose_name='Ингредиент'
+    )
+    recipe = models.ForeignKey(
+        Recipe,
+        verbose_name='Рецепт',
+        on_delete=models.CASCADE,
+        related_name='ingredienttorecipe'
+    )
+    amount = models.PositiveSmallIntegerField(
+        validators=[validators.MinValueValidator(1)],
+        verbose_name='Количество ингредиента'
+    )
+
+    class Meta:
+        ordering = ('-id', )
+        verbose_name = 'Ингредиент'
+        verbose_name_plural = 'Ингредиенты рецепта'
+
+    def __str__(self):
+        return (
+            f'{self.ingredient.name} :: {self.ingredient.measurement_unit}'
+            f' - {self.amount} '
+        )
+
+
 class IngredientAmount(models.Model):
     """Модель количества ингридиента в рецепте"""
     ingredient = models.ForeignKey(
