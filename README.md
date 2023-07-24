@@ -2,6 +2,8 @@
 
 ### Запуск проекта локально из образов с Docker hub:
 
+Сайт будет доступен по локальному адресу - http://127.0.0.1:8001/
+
 Клонировать репозиторий:
 ```
 git clone https://github.com/Bananny747/foodgram-project-react.git
