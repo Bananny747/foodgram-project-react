@@ -16,22 +16,22 @@ ALLOWED_HOSTS = [os.getenv('ALLOWED_HOSTS', default='*')]
 AUTH_USER_MODEL = 'users.User'
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
     'users.apps.UsersConfig',
     'recipes.apps.RecipesConfig',
     'api.apps.ApiConfig',
-    "rest_framework",
-    "corsheaders",
-    "rest_framework.authtoken",
-    "django_filters",
-    "djoser",
-    "drf_yasg",
-    "colorfield",
+    'rest_framework',
+    'corsheaders',
+    'rest_framework.authtoken',
+    'django_filters',
+    'djoser',
+    'drf_yasg',
+    'colorfield',
 ]
 
 MIDDLEWARE = [
@@ -101,27 +101,27 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
     ],
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
     ],
 }
 
 DJOSER = {
-    "SERIALIZERS": {
-        "user_create": "api.serializers.UserCreateSerializer",
-        "user": "api.serializers.UserSerializer",
-        "current_user": "api.serializers.UserSerializer",
+    'SERIALIZERS': {
+        'user_create': 'api.serializers.UserCreateSerializer',
+        'user': 'api.serializers.UserSerializer',
+        'current_user': 'api.serializers.UserSerializer',
     },
 
-    "PERMISSIONS": {
-        "user": ["djoser.permissions.CurrentUserOrAdminOrReadOnly"],
-        "user_list": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
+    'PERMISSIONS': {
+        'user': ['djoser.permissions.CurrentUserOrAdminOrReadOnly'],
+        'user_list': ['rest_framework.permissions.IsAuthenticatedOrReadOnly'],
     },
 
-    "HIDE_USERS": False,
+    'HIDE_USERS': False,
 }
 
 LANGUAGE_CODE = 'ru-RU'

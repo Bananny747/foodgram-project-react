@@ -9,7 +9,8 @@ from users.models import User
 
 
 class Ingredient(models.Model):
-    """ Модель ингридиентов. """
+    """Модель ингридиентов."""
+
     name = models.CharField(
         max_length=settings.LENGTH_OF_FIELDS_RECIPES,
         verbose_name='Название ингридиента',
@@ -25,7 +26,7 @@ class Ingredient(models.Model):
         verbose_name_plural = 'Ингридиенты'
         constraints = [
             models.UniqueConstraint(
-                fields=['name', 'measurement_unit'],
+                fields=('name', 'measurement_unit',),
                 name='unique_name_measurement_unit'
             )
         ]
@@ -35,7 +36,8 @@ class Ingredient(models.Model):
 
 
 class Tag(models.Model):
-    """ Модель тегов."""
+    """Модель тегов."""
+
     name = models.CharField(
         verbose_name='Название тега',
         max_length=settings.LENGTH_OF_FIELDS_RECIPES,
@@ -49,7 +51,7 @@ class Tag(models.Model):
         unique=True,
         validators=[
             RegexValidator(
-                regex="^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$",
+                regex='^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$',
                 message='Проверьте вводимый формат',
             )
         ],
@@ -70,7 +72,8 @@ class Tag(models.Model):
 
 
 class Recipe(models.Model):
-    """ Модель рецептов. """
+    """Модель рецептов."""
+
     author = models.ForeignKey(
         User,
         verbose_name='Автор рецепта',
@@ -118,7 +121,8 @@ class Recipe(models.Model):
 
 
 class FavoriteShoppingCart(models.Model):
-    """ Связывающая модель списка покупок и избранного. """
+    """Связывающая модель списка покупок и избранного."""
+
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -145,7 +149,7 @@ class FavoriteShoppingCart(models.Model):
 
 
 class Favorite(FavoriteShoppingCart):
-    """ Модель добавление в избраное. """
+    """Модель добавление в избраное."""
 
     class Meta(FavoriteShoppingCart.Meta):
         default_related_name = 'favorites'
@@ -154,7 +158,7 @@ class Favorite(FavoriteShoppingCart):
 
 
 class ShoppingCart(FavoriteShoppingCart):
-    """ Модель списка покупок. """
+    """Модель списка покупок."""
 
     class Meta(FavoriteShoppingCart.Meta):
         default_related_name = 'shopping_list'
@@ -163,7 +167,8 @@ class ShoppingCart(FavoriteShoppingCart):
 
 
 class IngredientAmount(models.Model):
-    """ Ингридиенты рецепта. """
+    """Ингридиенты рецепта."""
+
     ingredient = models.ForeignKey(
         Ingredient,
         on_delete=models.CASCADE,
@@ -181,7 +186,7 @@ class IngredientAmount(models.Model):
     )
 
     class Meta:
-        ordering = ('-id', )
+        ordering = ('ingredient', )
         verbose_name = 'Ингредиент'
         verbose_name_plural = 'Ингредиенты рецепта'
 

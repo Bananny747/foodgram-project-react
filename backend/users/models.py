@@ -4,7 +4,7 @@ from django.db import models
 
 
 class User(AbstractUser):
-    """Кастомная модель пользователя"""
+    """Кастомная модель пользователя."""
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ('username', 'first_name', 'last_name', )
@@ -38,7 +38,7 @@ class User(AbstractUser):
 
 
 class Follow(models.Model):
-    """Модель подписки на автора"""
+    """Модель подписки на автора."""
 
     user = models.ForeignKey(
         User,
@@ -69,4 +69,4 @@ class Follow(models.Model):
         verbose_name_plural = 'Подписки'
 
     def __str__(self):
-        return f"{self.user} подписан на {self.author}"
+        return f'{self.user} подписан на {self.author}'

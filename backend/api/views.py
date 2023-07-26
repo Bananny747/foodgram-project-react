@@ -34,7 +34,8 @@ from .serializers import (
 
 
 class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
-    """ Вывод ингредиентов """
+    """Вывод ингредиентов."""
+
     serializer_class = IngredientSerializer
     queryset = Ingredient.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -44,7 +45,8 @@ class IngredientViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class TagViewSet(viewsets.ModelViewSet):
-    """ Вывод тегов """
+    """Вывод тегов."""
+
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
     permission_classes = (IsAuthenticatedOrReadOnly, )
@@ -52,7 +54,8 @@ class TagViewSet(viewsets.ModelViewSet):
 
 
 class RecipeViewSet(viewsets.ModelViewSet):
-    """ Вывод работы с рецептами """
+    """Вывод работы с рецептами."""
+
     queryset = Recipe.objects.all()
     serializer_class = CreateRecipeSerializer
     permission_classes = (AuthorPermission, )
@@ -70,15 +73,17 @@ class RecipeViewSet(viewsets.ModelViewSet):
         shopping_list = 'Купить в магазине:'
         for ingredient in ingredients:
             shopping_list += (
-                f"\n{ingredient['ingredient__name']} "
-                f"({ingredient['ingredient__measurement_unit']}) - "
-                f"{ingredient['amount']}")
+                f'\n{ingredient["ingredient__name"]} '
+                f'({ingredient["ingredient__measurement_unit"]}) - '
+                f'{ingredient["amount"]}')
         file = 'shopping_list.txt'
         response = HttpResponse(shopping_list, content_type='text/plain')
         response['Content-Disposition'] = f'attachment; filename="{file}.txt"'
         return response
 
-    @action(detail=False, methods=['GET'])
+    @action(detail=False,
+            methods=['GET'],
+            permission_classes=(IsAuthenticated,))
     def download_shopping_cart(self, request):
         ingredients = IngredientAmount.objects.filter(
             recipe__shopping_list__user=request.user
@@ -90,7 +95,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=('POST',),
-        permission_classes=[IsAuthenticated])
+        permission_classes=(IsAuthenticated,))
     def shopping_cart(self, request, pk):
         context = {'request': request}
         recipe = get_object_or_404(Recipe, id=pk)
@@ -139,6 +144,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
 
 class UserViewSet(UserViewSet):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = CustomPagination
