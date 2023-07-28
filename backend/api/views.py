@@ -120,9 +120,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(
         detail=True,
         methods=('POST',),
-        permission_classes=[IsAuthenticated])
+        permission_classes=(IsAuthenticated,))
     def favorite(self, request, pk):
-        context = {"request": request}
+        context = {'request': request}
         recipe = get_object_or_404(Recipe, id=pk)
         data = {
             'user': request.user.id,
@@ -152,7 +152,7 @@ class UserViewSet(UserViewSet):
     @action(
         detail=True,
         methods=('post', 'delete',),
-        permission_classes=[IsAuthenticated],
+        permission_classes=(IsAuthenticated,),
     )
     def subscribe(self, request, id):
         user = request.user
@@ -172,7 +172,7 @@ class UserViewSet(UserViewSet):
             ).delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @action(detail=False, permission_classes=[IsAuthenticated])
+    @action(detail=False, permission_classes=(IsAuthenticated,))
     def subscriptions(self, request):
         user = request.user
         queryset = User.objects.filter(following__user=user)
