@@ -61,7 +61,7 @@ jobs:
         with:
           context: ./infra/
           push: true
-          tags: bananny747/foodgram_gateway:latest 
+          tags: bananny747/foodgram_nginx:latest 
   deploy:
     runs-on: ubuntu-latest
     needs: 
