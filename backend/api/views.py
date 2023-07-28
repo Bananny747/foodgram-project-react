@@ -82,7 +82,7 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return response
 
     @action(detail=False,
-            methods=['GET'],
+            methods=('GET',),
             permission_classes=(IsAuthenticated,))
     def download_shopping_cart(self, request):
         ingredients = IngredientAmount.objects.filter(
@@ -151,7 +151,7 @@ class UserViewSet(UserViewSet):
 
     @action(
         detail=True,
-        methods=['post', 'delete'],
+        methods=('post', 'delete',),
         permission_classes=[IsAuthenticated],
     )
     def subscribe(self, request, id):
